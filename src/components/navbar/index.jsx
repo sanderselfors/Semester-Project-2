@@ -95,13 +95,6 @@ export default function Navigation() {
               </div>
             </>
           )}
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-24 input input-bordered md:w-auto"
-            />
-          </div>
           {!profile && (
             <Link to="/login" className="btn btn-primary">
               Log In
