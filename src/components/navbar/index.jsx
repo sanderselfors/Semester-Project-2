@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 export default function Navigation() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showUserInfo, setShowUserInfo] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user_name = localStorage.getItem("user_name");
@@ -38,12 +40,58 @@ export default function Navigation() {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
+  useEffect(() => {
+    // If the profile state changes, check if the user is logged out and navigate to the login page
+    if (!profile) {
+      navigate("/login");
+    }
+  }, [profile, navigate]);
+
+  useEffect(() => {
+    const handleNavbarLogin = () => {
+      // Fetch user profile information after successful login
+      fetchUserProfile();
+    };
+
+    // Listen for the custom event when the login occurs
+    window.addEventListener("navbar-login", handleNavbarLogin);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("navbar-login", handleNavbarLogin);
+    };
+  }, []);
+
+  const fetchUserProfile = async () => {
+    const user_name = localStorage.getItem("user_name");
+    const token = localStorage.getItem("accessToken");
+
+    if (token && user_name) {
+      try {
+        const response = await fetch(
+          `https://api.noroff.dev/api/v1/auction/profiles/${user_name}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    }
   };
 
-  const [showUserInfo, setShowUserInfo] = useState(false);
+  const handleLogout = () => {
+    localStorage.clear();
+    // Setting the profile state to null triggers the navigation effect
+    setProfile(null);
+  };
 
   const toggleUserInfo = () => {
     setShowUserInfo(!showUserInfo);
@@ -54,13 +102,15 @@ export default function Navigation() {
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <Link to="/" className="text-xl btn btn-ghost">
-            Your App Name
+            My App
           </Link>
         </div>
         <div className="flex items-center flex-none gap-2">
           {profile && (
             <>
-              <p className="mr-2 text-gray-700">Credits: {profile.credits}</p>
+              <p className="mr-2 text-gray-400">
+                Credits: {profile?.credits || 0}
+              </p>
               <div className="dropdown dropdown-end">
                 <label
                   tabIndex={0}

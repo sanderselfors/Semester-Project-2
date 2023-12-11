@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tanstack/react-router": "^0.0.1-beta.210",
+    "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",

@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const notifyNavbarLogin = () => {
+    const loginEvent = new Event("navbar-login");
+    window.dispatchEvent(loginEvent);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,13 +39,18 @@ export default function LoginPage() {
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("user_email", data.email);
           localStorage.setItem("user_name", data.name);
-        }
-        setSuccess("Login successful.");
+          setSuccess("Login successful.");
 
-        window.location.reload();
-        window.location.href = "/profile";
+          // Notify Navbar about the login
+          notifyNavbarLogin();
+
+          // Navigate to home
+          navigate({ to: "/" });
+        }
       } else {
-        setError("Invalid credentials. Please check your email and password.");
+        setError(
+          "Invalid credentials. Please check your email and password."
+        );
       }
     } catch (error) {
       setError("An error occurred. Please try again later.");
@@ -50,11 +62,18 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen p-5 overflow-hidden">
-      <div className="w-full max-w-xl p-5 m-auto bg-white border-2 border-blue-500 py-28 rounded-xl">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        className="w-full max-w-xl p-5 m-auto bg-white py-28 rounded-xl"
+      >
         <h1 className="text-3xl font-normal text-center text-gray-700">
           Login
         </h1>
-        {error && <div className="mt-2 text-center text-red-600">{error}</div>}
+        {error && (
+          <div className="mt-2 text-center text-red-600">{error}</div>
+        )}
         {success && (
           <div className="mt-2 text-center text-green-600">{success}</div>
         )}
@@ -62,24 +81,32 @@ export default function LoginPage() {
           <div className="py-1 mb-2">
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className="block w-full px-4 py-2 mt-2 text-blue-500 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="username" 
             />
           </div>
           <div className="py-3 mb-2">
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="block w-full px-4 py-2 mt-2 text-blue-500 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password" 
             />
           </div>
-          <div className="flex justify-center mt-6">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex justify-center mt-6"
+          >
             <button
               type="submit"
               className="w-full px-4 py-2 tracking-wide text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-3xl hover:bg-blue-700 focus:outline-none focus:bg-blue-500"
@@ -87,7 +114,7 @@ export default function LoginPage() {
             >
               {isLoading ? "Logging in..." : "Log in"}
             </button>
-          </div>
+          </motion.div>
         </form>
         <a
           href="#"
@@ -104,7 +131,9 @@ export default function LoginPage() {
             Sign up
           </Link>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
-}
+};
+
+export default LoginPage;

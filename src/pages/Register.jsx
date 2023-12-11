@@ -1,5 +1,6 @@
+import React, { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -69,7 +70,12 @@ function RegisterForm() {
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen p-5 overflow-hidden">
-      <div className="w-full max-w-xl p-5 m-auto bg-white border-2 border-blue-500 py-28 rounded-xl">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        className="w-full max-w-xl p-5 m-auto bg-white py-28 rounded-xl"
+      >
         <h1 className="text-3xl font-normal text-center text-gray-700">
           Register
         </h1>
@@ -118,7 +124,11 @@ function RegisterForm() {
               required
             />
           </div>
-          <div className="flex justify-center mt-6">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex justify-center mt-6"
+          >
             <button
               type="button"
               onClick={handleRegistration}
@@ -127,7 +137,7 @@ function RegisterForm() {
             >
               {isLoading ? "Registering..." : "Register"}
             </button>
-          </div>
+          </motion.div>
         </form>
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           Already have an account?{" "}
@@ -138,7 +148,7 @@ function RegisterForm() {
             Log in
           </Link>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
