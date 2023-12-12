@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 
 export default function Navigation() {
@@ -56,9 +57,13 @@ export default function Navigation() {
     // Listen for the custom event when the login occurs
     window.addEventListener("navbar-login", handleNavbarLogin);
 
-    // Clean up the event listener on component unmount
+    // Listen for the custom event when the avatar is updated
+    window.addEventListener("avatar-update", fetchUserProfile);
+
+    // Clean up the event listeners on component unmount
     return () => {
       window.removeEventListener("navbar-login", handleNavbarLogin);
+      window.removeEventListener("avatar-update", fetchUserProfile);
     };
   }, []);
 

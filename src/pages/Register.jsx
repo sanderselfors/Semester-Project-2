@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
@@ -132,7 +132,7 @@ function RegisterForm() {
             <button
               type="button"
               onClick={handleRegistration}
-              className="w-full px-4 py-2 tracking-wide text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-3xl hover:bg-blue-700 focus:outline-none focus:bg-blue-500"
+              className="w-full px-4 py-2 tracking-wide text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-xl hover:bg-blue-700 focus:outline-none focus:bg-blue-500"
               disabled={isLoading}
             >
               {isLoading ? "Registering..." : "Register"}

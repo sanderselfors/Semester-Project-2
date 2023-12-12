@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const SearchBar = ({ onSearch }) => {
@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="mb-4">
+    <div className="flex m-auto mb-4">
       <input
         type="text"
         placeholder="Search by title or tags"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 
@@ -11,7 +11,7 @@ const ListingDetailsPage = () => {
   const [bidError, setBidError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate(); 
 
   const fetchListingDetails = async () => {
     try {

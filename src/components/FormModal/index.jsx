@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateListingForm from '../CreateListingForm';
 
@@ -26,8 +27,8 @@ const FormModal = () => {
   return (
     <div>
       {/* Open the modal using state */}
-      <button className="btn" onClick={openModal}>
-        Create listing
+      <button className="btn btn-primary" onClick={openModal}>
+        Create listing +
       </button>
 
       {/* Modal */}

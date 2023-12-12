@@ -1,5 +1,5 @@
-// ListingsFetcher.js
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 
