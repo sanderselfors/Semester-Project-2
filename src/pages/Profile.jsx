@@ -125,7 +125,7 @@ function Profile() {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="max-w-3xl p-8 mx-auto bg-white rounded-lg shadow-md"
+        className="max-w-full p-8 mx-auto bg-white rounded-lg shadow-md"
       >
         {loading && <p>Loading...</p>}
         {!profile && (
