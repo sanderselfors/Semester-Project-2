@@ -125,7 +125,7 @@ function Profile() {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="max-w-full p-8 mx-auto bg-white rounded-lg shadow-md"
+        className="max-w-screen-lg p-8 mx-auto bg-white rounded-lg shadow-md"
       >
         {loading && <p>Loading...</p>}
         {!profile && (
@@ -187,7 +187,7 @@ function Profile() {
                       id="avatar"
                       value={newAvatar}
                       onChange={(e) => setNewAvatar(e.target.value)}
-                      className="flex-grow max-w-full p-2 border rounded-l focus:outline-none"
+                      className="w-full p-2 border rounded-l focus:outline-none"
                     />
                     <motion.button
                       whileHover={{ scale: 1.05 }}
