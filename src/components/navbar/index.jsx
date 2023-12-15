@@ -107,7 +107,7 @@ export default function Navigation() {
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <Link to="/" className="text-xl btn btn-ghost">
-            My App
+            BIDIT.
           </Link>
         </div>
         <div className="flex items-center flex-none gap-2">

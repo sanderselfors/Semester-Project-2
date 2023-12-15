@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
