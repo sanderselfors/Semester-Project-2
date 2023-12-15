@@ -187,7 +187,7 @@ function Profile() {
                       id="avatar"
                       value={newAvatar}
                       onChange={(e) => setNewAvatar(e.target.value)}
-                      className="flex-grow p-2 border rounded-l focus:outline-none"
+                      className="flex-grow max-w-full p-2 border rounded-l focus:outline-none"
                     />
                     <motion.button
                       whileHover={{ scale: 1.05 }}
