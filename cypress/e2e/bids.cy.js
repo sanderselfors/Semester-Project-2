@@ -25,7 +25,7 @@ describe("Registered users can add a bid to another user’s listing", () => {
     cy.get(".grid.grid-cols-1 a").first().click();
 
     // Type the bid amount in the input field
-    const bidAmount = 50;
+    const bidAmount = 100;
     cy.get('input[type="number"]').type(bidAmount);
 
     // Submit the bid form
